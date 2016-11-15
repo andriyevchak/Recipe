@@ -202,6 +202,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BusinessObjects\Product.cs" />
+    <Compile Include="Models\BusinessObjects\Recipe.cs" />
+    <Compile Include="Models\BusinessObjects\RecipeContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
