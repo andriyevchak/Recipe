@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Recipe.Enums;
 
-namespace Recipe.Models.BusinessObjects
+namespace Recipe.Models.Recipe
 {
     public class IngredientAmount
     {

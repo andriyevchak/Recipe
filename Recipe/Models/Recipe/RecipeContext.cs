@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace Recipe.Models.BusinessObjects
+namespace Recipe.Models.Recipe
 {
     public class RecipeContext : DbContext
     {
