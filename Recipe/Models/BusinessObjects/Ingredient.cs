@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Recipe.Models.BusinessObjects
 {
-    public class Product
+    public class Ingredient
     {
-        public int ProductId { get; set; }
+        public int IngredientId { get; set; }
         public string Name { get; set; }
 
         public virtual List<Recipe> Recipes { get; set; }
