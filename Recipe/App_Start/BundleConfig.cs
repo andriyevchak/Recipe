@@ -26,6 +26,15 @@ namespace Recipe
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/main").Include(
+                     "~/Content/main.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/mainScripts").Include(
+                     "~/Scripts/skel.min.js",
+                     "~/Scripts/util.js",
+                     "~/Scripts/respond.min.js",
+                     "~/Scripts/main.js"));
         }
     }
 }
