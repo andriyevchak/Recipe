@@ -198,6 +198,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Recipe\AddRecipeController.cs" />
+    <Compile Include="Controllers\Recipe\AllRecipeController.cs" />
     <Compile Include="Controllers\Recipe\HomeController.cs" />
     <Compile Include="Enums\UnitsOfMeasurement.cs" />
     <Compile Include="Global.asax.cs">
@@ -290,8 +291,9 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\AddRecipe\Index.cshtml" />
     <Content Include="Views\Shared\NewLayout.cshtml" />
+    <Content Include="Views\AllRecipe\AllRecipe.cshtml" />
+    <Content Include="Views\AddRecipe\AddIngredient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
