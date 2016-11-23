@@ -197,18 +197,18 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\Recipe\AddRecipeController.cs" />
-    <Compile Include="Controllers\Recipe\AllRecipeController.cs" />
-    <Compile Include="Controllers\Recipe\HomeController.cs" />
+    <Compile Include="Controllers\RecipeController\AddRecipeController.cs" />
+    <Compile Include="Controllers\RecipeController\AllRecipeController.cs" />
+    <Compile Include="Controllers\RecipeController\HomeController.cs" />
     <Compile Include="Enums\UnitsOfMeasurement.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Recipe\IngredientAmount.cs" />
-    <Compile Include="Models\Recipe\Ingredient.cs" />
-    <Compile Include="Models\Recipe\Recipe.cs" />
-    <Compile Include="Models\Recipe\RecipeContext.cs" />
+    <Compile Include="Models\DbRecipe\IngredientAmount.cs" />
+    <Compile Include="Models\DbRecipe\Ingredient.cs" />
+    <Compile Include="Models\DbRecipe\Recipe.cs" />
+    <Compile Include="Models\DbRecipe\RecipeContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -225,6 +225,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Recipes\1.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -292,8 +293,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\NewLayout.cshtml" />
-    <Content Include="Views\AllRecipe\AllRecipe.cshtml" />
     <Content Include="Views\AddRecipe\AddIngredient.cshtml" />
+    <Content Include="Views\AddRecipe\AddRecipe.cshtml" />
+    <Content Include="Views\AllRecipe\AllRecipe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
