@@ -3,59 +3,30 @@
 <p>
     @Html.ActionLink("Create New", "")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.RecipeId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.RecipeId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.RecipeId })
-            </td>
-        </tr>
-    }
+<!-- Features -->
+<div id="features-wrapper">
+    <div class="container">
+        <div class="row">
 
-    <!-- Features -->
-    <div id="features-wrapper">
-        <div class="container">
-            <div class="row">
-
-                @foreach (var item in Model)
-                {
+            @foreach (var item in Model)
+            {
                         <!-- Box -->
-                  <div class="4u 12u(medium)">
-                        <section class="box feature">
-                            <a href="#" class="image featured"><img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="" /></a>
-                            <div class="inner">
-                                <header>
-                                    <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
-                                    <p>@Html.DisplayFor(modelItem => item.Description)</p>
-                                </header>
-                                <p>@Html.DisplayFor(modelItem => item.Description)</p>
-                                @Html.DisplayFor(modelItem => item.ImageUrl)
-                            </div>
-                        </section>
-                    </div>
-                }
+                <div class="4u 12u(medium)">
+                    <section class="box feature">
+                        <a href="#" class="image featured"><img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="" /></a>
+                        <div class="inner">
+                            <header>
+                                <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+                            </header>
+                            <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString().Substring(0, 70)</p>
+                        </div>
+                    </section>
+                </div>
+            }
 
-            </div>
         </div>
     </div>
+</div>
 
 </table>

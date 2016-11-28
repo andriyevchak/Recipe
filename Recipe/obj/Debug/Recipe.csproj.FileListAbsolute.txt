@@ -79,3 +79,4 @@ C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Microsoft.Owin.Securi
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\obj\Debug\Recipe.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\obj\Debug\Recipe.pdb
+C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\obj\Debug\Recipe.csprojResolveAssemblyReference.cache
