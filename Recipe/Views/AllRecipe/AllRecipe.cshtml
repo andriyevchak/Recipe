@@ -12,12 +12,12 @@
             @foreach (var item in Model)
             {
                         <!-- Box -->
-                <div class="4u 12u(medium)">
-                    <section class="box feature">
+                <div class="4u 12u(medium)" style="height:30%; max-height:420px;">
+                    <section class="box feature" style="height:30%; max-height:400px;">
                         <a href="#" class="image featured"><img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="" /></a>
-                        <div class="inner">
-                            <header>
-                                <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
+                        <div class="inner" style="padding-top:5px;">
+                            <header style=" margin:0,0,1em,0;">
+                                <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
                             </header>
                             <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString().Substring(0, 70)</p>
                         </div>
