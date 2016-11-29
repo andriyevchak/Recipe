@@ -77,6 +77,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -197,9 +205,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\RecipeController\AddRecipeController.cs" />
-    <Compile Include="Controllers\RecipeController\AllRecipeController.cs" />
     <Compile Include="Controllers\RecipeController\HomeController.cs" />
+    <Compile Include="Controllers\RecipeController\RecipeController.cs" />
     <Compile Include="Enums\UnitsOfMeasurement.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -221,11 +228,32 @@
     <Content Include="Content\ie8.css" />
     <Content Include="Content\images\bg01.png" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Recipes\1.jpg" />
+    <Content Include="Images\Recipes\image00.jpg" />
+    <Content Include="Images\Recipes\image01.jpg" />
+    <Content Include="Images\Recipes\image02.jpg" />
+    <Content Include="Images\Recipes\image03.jpg" />
+    <Content Include="Images\Recipes\image04.jpg" />
+    <Content Include="Images\Recipes\image05.jpg" />
+    <Content Include="Images\Recipes\image06.jpg" />
+    <Content Include="Images\Recipes\image07.jpg" />
+    <Content Include="Images\Recipes\image08.jpg" />
+    <Content Include="Images\Recipes\image09.jpg" />
+    <Content Include="Images\Recipes\image10.jpg" />
+    <Content Include="Images\Recipes\image11.jpg" />
+    <Content Include="Images\Recipes\image12.jpg" />
+    <Content Include="Images\Recipes\image13.jpg" />
+    <Content Include="Images\Recipes\image14.jpg" />
+    <Content Include="Images\Recipes\image16.jpg" />
+    <Content Include="Images\Recipes\image17.jpg" />
+    <Content Include="Images\Recipes\image18.jpg" />
+    <Content Include="Images\Recipes\image19.jpg" />
+    <Content Include="Images\Recipes\Salad Mushroom Lawn.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -293,9 +321,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\NewLayout.cshtml" />
-    <Content Include="Views\AddRecipe\AddIngredient.cshtml" />
-    <Content Include="Views\AddRecipe\AddRecipe.cshtml" />
-    <Content Include="Views\AllRecipe\AllRecipe.cshtml" />
+    <Content Include="Views\Recipe\AddRecipe.cshtml" />
+    <Content Include="Views\Recipe\AllRecipe.cshtml" />
+    <Content Include="Views\Recipe\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
