@@ -40,6 +40,8 @@ C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Microsoft.Owin.Securi
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Newtonsoft.Json.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Owin.dll
+C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\PagedList.dll
+C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\PagedList.Mvc.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\System.Web.Helpers.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\System.Web.Mvc.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\System.Web.Optimization.dll
@@ -54,6 +56,8 @@ C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Microsoft.AI.Web.xml
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Microsoft.ApplicationInsights.xml
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\PagedList.xml
+C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\PagedList.Mvc.xml
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\System.Web.Helpers.xml
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\System.Web.Mvc.xml
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\System.Web.Optimization.xml

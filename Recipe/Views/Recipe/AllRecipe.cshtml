@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Recipe.Models.DbRecipe.Recipe>
 
 <p>
-    @Html.ActionLink("Create New", "")
+    @Html.ActionLink("Create New", "AddRecipe")
 </p>
 
 <!-- Features -->
@@ -19,7 +19,17 @@
                             <header style=" margin:0,0,1em,0;">
                                 <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
                             </header>
-                            <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString().Substring(0, 70)</p>
+@{
+    if (item.Description.Length > 70)
+    {
+        <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString().Substring(0, 70)</p>
+    }
+    else
+    {
+        <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString()</p>
+    }
+}
+
                             @Html.ActionLink("Edit", "Edit", new { id = item.RecipeId }) |
                         </div>
                     </section>

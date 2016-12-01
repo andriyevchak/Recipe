@@ -3,7 +3,3 @@ C:\Users\AndriyEvchak\Desktop\Repository\Recipe\RecipeDB\bin\Debug\RecipeDB.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\RecipeDB\bin\Debug\RecipeDB.pdb
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\RecipeDB\obj\Debug\RecipeDB.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\RecipeDB\obj\Debug\RecipeDB.pdb
-C:\Users\AndriyEvchak\Desktop\Repository\Recipe\RecipeDB\obj\Debug\Model.xml
-C:\Users\AndriyEvchak\Desktop\Repository\Recipe\RecipeDB\obj\Debug\refactor.xml
-C:\Users\AndriyEvchak\Desktop\Repository\Recipe\RecipeDB\obj\Debug\postdeploy.sql
-C:\Users\AndriyEvchak\Desktop\Repository\Recipe\RecipeDB\obj\Debug\predeploy.sql
