@@ -4,13 +4,10 @@ C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\roslyn\Microsoft.Buil
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\roslyn\System.Collections.Immutable.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\roslyn\System.Reflection.Metadata.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\roslyn\vbc.exe
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\roslyn\VBCSCompiler.exe
-C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Recipe.dll.config
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Recipe.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Recipe.pdb
@@ -83,4 +80,3 @@ C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Microsoft.Owin.Securi
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\obj\Debug\Recipe.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\obj\Debug\Recipe.pdb
-C:\Users\AndriyEvchak\Desktop\Repository\Recipe\Recipe\obj\Debug\Recipe.csprojResolveAssemblyReference.cache
