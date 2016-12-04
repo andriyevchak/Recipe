@@ -7,6 +7,16 @@
 <!-- Features -->
 <div id="features-wrapper">
     <div class="container">
+
+        @using (Html.BeginForm("AllRecipe", "Recipe", FormMethod.Get))
+        {
+            <p>
+                Genre: @Html.DropDownList("Name", "All")
+                Title: @Html.TextBox("SearchString")
+                <input type="submit" value="Filter" />
+            </p>
+        }
+
         <div class="row">
 
             @foreach (var item in Model)

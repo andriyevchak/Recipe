@@ -1,6 +1,7 @@
 ﻿using Recipe.Models.DbRecipe;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -13,14 +14,39 @@ namespace Recipe.Controllers.RecipeController
     public class RecipeController : Controller
     {
         // GET: AllRecipe
-        public ActionResult AllRecipe()
+        //[HttpGet]
+        //public ActionResult AllRecipe()
+        //{
+        //    RecipeContext db = new RecipeContext();
+
+        //    return View(db.Recipes);
+        //}
+
+        // GET: AllRecipe
+        [HttpGet]
+        public ActionResult AllRecipe(string Name , string searchString)
         {
             RecipeContext db = new RecipeContext();
 
+            var GenreLst = new List<string>();
+
+            var GenreQry = from d in db.Recipes
+                           orderby d.Name
+                           select d.Name;
+
+            GenreLst.AddRange(GenreQry.Distinct());
+            ViewBag.Name = new SelectList(GenreLst);
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return View(db.Recipes.Where(s => s.Name.Contains(searchString)));
+            }
 
 
             return View(db.Recipes);
         }
+
 
         // GET: /Account/Register
         [AllowAnonymous]
