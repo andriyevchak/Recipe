@@ -1,139 +1,160 @@
 ﻿@model IEnumerable<Recipe.Models.DbRecipe.Recipe>
 
-<p>
-    @Html.ActionLink("Create New", "AddRecipe")
-</p>
-
 <style>
-body {
-    font-family: "Lato", sans-serif;
-}
-
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-    opacity: 0.9;
-}
-
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #818181;
-    display: block;
-    transition: 0.5s;
-}
-
-.sidenav a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-</style>
-
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        @using (Html.BeginForm("AllRecipe", "Recipe", FormMethod.Get))
-        {
-            <p style="margin:10px;">Genre: @Html.DropDownList("Name", "All")
-
-            Title: @Html.TextBox("SearchString")</p>
-
-            <input type="submit" style="margin:10px;" value="Ok" />
-        }
-    </div>
-
-
-<script>
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
-    document.getElementById("main").style.transition = "0.5s";
-
-
-}
-
-window.onload = function () {
-    var Blocks = document.getElementsByClassName("box feature");
-    var maxBlock;
-    for(var item in  Blocks) {
-        if (Blocks[item].clientHeight > maxBlock) {
-            maxBlock = Blocks[item].clientHeight;
-        }
-    };
-
-    for (var item in Blocks)
-    {
-        Blocks[item].clientHeight = maxBlock;
+    body {
+        font-family: "Lato", sans-serif;
     }
 
-    document.getElementById("main").style.transition = "0.5s";
-};
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        opacity: 0.9;
+    }
 
-</script>
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #818181;
+            display: block;
+            transition: 0.5s;
+        }
 
-<div id="main">
+            .sidenav a:hover, .offcanvas a:focus {
+                color: #f1f1f1;
+            }
 
-    <button style="font-size:15px;cursor:pointer" onclick="openNav()"> Filter </button>
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
 
-    <!-- Features -->
-    <div id="features-wrapper">
-        <div>
+    media screen and (max-height: 450px) {
+        .sidenav;
 
-            <div class="row">
+    {
+        padding-top: 15px;
+    }
 
-                @foreach (var item in Model)
-                {
-                        <!-- Box -->
-                    <div  class="box feature" style="height: 10%; width:30%; margin:1%;">
-                        <section>
-                            <a href="#" class="image featured"><img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="" /></a>
-                            <div class="inner" style="padding-top:5px;">
-                                <header style=" margin:0,0,1em,0;">
-                                    <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
-                                </header>
-                                @{
-                                    if (item.Description.Length > 70)
-                                    {
-                                        <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString().Substring(0, 70)</p>
-                                    }
-                                    else
-                                    {
-                                        <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString()</p>
-                                    }
-                                }
-                            </div>
-                        </section>
-                        <p style="padding-bottom:0;">@Html.ActionLink("Edit", "Edit", new { id = item.RecipeId }) |</p>
-                    </div>
-                 }
+    .sidenav a {
+        font-size: 18px;
+    }
 
-            </div>
-        </div>
+    }
+</style>
+
+<div id="mySidenav" class="sidenav" style="height:100%;">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    @using (Html.BeginForm("AllRecipe", "Recipe", FormMethod.Get))
+    {
+        @*<p style="margin:10px;">*@
+            @*@Html.ListBox("Ingredients", ViewBag.Ingredients as MultiSelectList)*@
+            @*<p style="margin:10px;">Ingredient: @Html.ListBox("Ingredients", (MultiSelectList)ViewBag.Ingredients, new { multiple = "multiple" })*@
+        <p style="margin:10px;">
+            Ingredient: @Html.DropDownList("Ingredients", (MultiSelectList)ViewBag.Ingredients,"All", new { @class = "dropdown", multiple = "multiple",  @style = "height: 400px;" })
+
+            Title: @Html.TextBox("SearchString")
+        </p>
+
+        <input type="submit" style="margin:10px;" value="Ok" />
+        }
     </div>
 
-</div>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.getElementById("main").style.transition = "0.5s";
+
+
+        }
+
+        window.onload = function () {
+            var Blocks = document.getElementsByClassName("box feature");
+            var maxBlock;
+            for (var item in Blocks) {
+                if (Blocks[item].clientHeight > maxBlock) {
+                    maxBlock = Blocks[item].clientHeight;
+                }
+            };
+
+            for (var item in Blocks) {
+                Blocks[item].clientHeight = maxBlock;
+            }
+
+            document.getElementById("main").style.transition = "0.5s";
+        };
+
+    </script>
+
+    <div id="main">
+        <p>
+            @Html.ActionLink("Create New", "AddRecipe")
+        </p>
+
+
+        <button style="font-size:15px;cursor:pointer" onclick="openNav()"> Filter </button>
+
+        <!-- Features -->
+        <div id="features-wrapper">
+            <div>
+
+                <div class="row">
+
+                    @foreach (var item in Model)
+                {
+                        <!-- Box -->
+                        <div class="box feature" style="height: 20%; width: 20%; margin:1%;">
+                            <section style="margin:0px; padding:0;">
+                                <a href="#" class="image featured"><img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="" /></a>
+                                <div style="padding-top:5px; height: 20%; width: 100%;">
+                                    <header style="margin:0,0,1em,0;">
+                                        @{
+                                            if (item.Name.Length > 25)
+                                            {
+                                                <h4>@Html.DisplayFor(modelItem => item.Name).ToHtmlString().Substring(0, 25) </h4>
+                                            }
+                                            else
+                                            {
+                                                <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+                                            }
+                                        }
+                                    </header>
+                                    @{
+                                        if (item.Description.Length > 70)
+                                        {
+                                            <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString().Substring(0, 70)...</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString()</p>
+                                        }
+                                    }
+                                </div>
+                            </section>
+                            <p style="padding-bottom:0;">@Html.ActionLink("Edit", "Edit", new { id = item.RecipeId }) |</p>
+                        </div>
+                                        }
+
+                </div>
+            </div>
+        </div>
+
+    </div>

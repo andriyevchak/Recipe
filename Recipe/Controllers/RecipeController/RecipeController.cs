@@ -24,27 +24,61 @@ namespace Recipe.Controllers.RecipeController
 
         // GET: AllRecipe
         [HttpGet]
-        public ActionResult AllRecipe(string Name , string searchString)
+        public ActionResult AllRecipe(IEnumerable<string> ingredients, string searchString)
         {
             RecipeContext db = new RecipeContext();
 
-            var GenreLst = new List<string>();
+            var ingredientsBox = new List<string>();
 
-            var GenreQry = from d in db.Recipes
-                           orderby d.Name
-                           select d.Name;
+            var Ingredient = from d in db.Ingredients
+                             orderby d.Name
+                             select d.Name;
 
-            GenreLst.AddRange(GenreQry.Distinct());
-            ViewBag.Name = new SelectList(GenreLst);
+            List<Models.DbRecipe.Recipe> recipes = db.Recipes.ToList();
+            List<Models.DbRecipe.Recipe> recipesIngredients = new List<Models.DbRecipe.Recipe>();
+
+
+            ingredientsBox.AddRange(Ingredient.Distinct());
+            ViewBag.Ingredients = new SelectList(ingredientsBox);
 
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                return View(db.Recipes.Where(s => s.Name.Contains(searchString)));
+                recipes = recipes.Where(s => s.Name.Contains(searchString)).ToList();
             }
 
 
-            return View(db.Recipes);
+
+
+            if (ingredients != null&& (ingredients.Count() > 0 && !ingredients.First().Equals("")) && ingredients.Count() != 0)
+            {
+                //recipes = (List<Models.DbRecipe.Recipe>)(from r in recipes
+                //                                         from i in r.Ingredients
+                //                                         from si in ingredients
+                //                                         where i.Ingredient.Name == si
+                //                                         select r).Distinct().ToList();
+
+                foreach (var r in recipes)
+                {
+                    int count = 0;
+                    foreach (var si in r.Ingredients)
+                    {
+                        if (ingredients.Contains(si.Ingredient.Name))
+                        {
+                            count++;
+                        }
+                    }
+                    if(count== ingredients.Count())
+                    {
+                        recipesIngredients.Add(r);
+                    }
+                }
+
+                return View(recipesIngredients);
+
+            }
+
+            return View(recipes);
         }
 
 
@@ -67,7 +101,7 @@ namespace Recipe.Controllers.RecipeController
                 string pic = System.IO.Path.GetFileName(file.FileName);
                 string path = System.IO.Path.Combine(
                                        Server.MapPath("~/Images/Recipes"), pic);
-                model.ImageUrl = "/Images/Recipes/"+pic;
+                model.ImageUrl = "/Images/Recipes/" + pic;
 
                 // file is uploaded
                 file.SaveAs(path);

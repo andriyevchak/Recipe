@@ -2,10 +2,10 @@
 {
     public enum UnitsOfMeasurement
     {
-        Kilogram,
-        Gram,
-        Milligram,
-        Liter,
-        Milliliter
+        Kilogram = 0,
+        Gram = 1,
+        Milligram = 2,
+        Liter = 3,
+        Milliliter = 4
     }
 }
