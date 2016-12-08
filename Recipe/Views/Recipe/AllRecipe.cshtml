@@ -84,6 +84,15 @@
             document.getElementById("main").style.transition = "0.5s";
 
 
+}
+    
+window.onload = function () {
+    
+    var Blocks = document.getElementsByClassName("box feature");
+    var maxBlock;
+    for(var item in  Blocks) {
+        if (Blocks[item].clientHeight > maxBlock) {
+            maxBlock = Blocks[item].clientHeight;
         }
 
         window.onload = function () {
@@ -95,12 +104,28 @@
                 }
             };
 
-            for (var item in Blocks) {
-                Blocks[item].clientHeight = maxBlock;
-            }
+    document.getElementById("main").style.transition = "0.5s";
+    
+    $(".rating").rating();
+    $(".rating-locked").rating({ displayOnly: true });
+    $('.rating').on('rating.change', function (event, value, caption) {
+        $.ajax({
+            type: "POST",
+            url: "/Recipe/RateRecipe",
+            data: JSON.stringify({RecipeId: event.currentTarget.attributes["data-recipeId"].value, value: value}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: OnSuccess
+        });
+        //location.reload();
+        function OnSuccess(response) {
+            window.reload();
+        }
+    });
+};
 
-            document.getElementById("main").style.transition = "0.5s";
-        };
+
+</script>
 
     </script>
 
@@ -147,11 +172,66 @@
                                             <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString()</p>
                                         }
                                     }
-                                </div>
-                            </section>
-                            <p style="padding-bottom:0;">@Html.ActionLink("Edit", "Edit", new { id = item.RecipeId }) |</p>
-                        </div>
+                                    else
+                                    {
+                                        <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString()</p>
+                                    }
+                                }
+                            </div>
+                        </section>
+                        <div class="row">
+                            
+                            <div class="pull-left" style="padding-bottom:0; margin-left: 9px">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.RecipeId })
+                            </div>
+                            <div class="pull-right">
+                                @{
+                                    if (item.Rating == 0)
+                                    {
+                                            <span class="badge" style="margin-right: 15px">Recipe is not rated</span>
+                                        
+                                    }
+                                    else
+                                    {
+                                        <span class="badge">@Html.DisplayFor(modelItem => item.Rating)</span>
+                                    }
+                                }
+                                @if (ViewBag.currentUserId != null)
+                                {
+
+                                    Boolean wasRated = false;
+                                    double mark = 0;
+                                    if (item.RatedUsers != null)
+                                    {
+                                        for (int i = 0; i < item.RatedUsers.Count; i++)
+                                        {
+                                            if (item.RatedUsers[i].UserId.Equals(ViewBag.currentUserId))
+                                            {
+                                                mark = item.RatedUsers[i].Mark;
+                                                wasRated = true;
+                                            }
                                         }
+                                    }
+                                    if (!wasRated)
+                                    {
+                                        <input class="rating rating-loading" data-recipeId="@item.RecipeId" data-show-caption="true" data-show-clear="false" value=@Html.DisplayFor(modelItem => item.Rating) data-min="0" data-max="5" data-step="0.1" data-size="xs">
+                                    }
+                                    else
+                                    {
+                                        
+                                        <input class="rating rating-loading" data-recipeId="@item.RecipeId" value=@mark data-show-clear="false" data-size="xs">
+                                    }
+                                }
+                                else
+                                {
+                                    <input class="rating-loading rating-locked" value=@Html.DisplayFor(modelItem => item.Rating) data-size="xs">
+                                }
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                 }
 
                 </div>
             </div>

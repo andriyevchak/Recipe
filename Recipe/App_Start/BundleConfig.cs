@@ -28,13 +28,14 @@ namespace Recipe
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/main").Include(
-                     "~/Content/main.css"));
+                     "~/Content/main.css", "~/Content/star-rating.css"));
 
             bundles.Add(new StyleBundle("~/bundles/mainScripts").Include(
                      "~/Scripts/skel.min.js",
                      "~/Scripts/util.js",
                      "~/Scripts/respond.min.js",
-                     "~/Scripts/main.js"));
+                     "~/Scripts/main.js",
+                     "~/Scripts/star-rating.js"));
         }
     }
 }

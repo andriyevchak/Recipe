@@ -12,5 +12,7 @@ namespace Recipe.Models.DbRecipe
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<IngredientAmount> IngredientAmounts { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
+
+        public DbSet<ShortUserInfo> Users { get; set;  }
     }
 }

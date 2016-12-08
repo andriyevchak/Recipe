@@ -1,4 +1,7 @@
-﻿using Recipe.Models.DbRecipe;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Recipe.Models;
+using Recipe.Models.DbRecipe;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,6 +50,10 @@ namespace Recipe.Controllers.RecipeController
                 recipes = recipes.Where(s => s.Name.Contains(searchString)).ToList();
             }
 
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.currentUserId = User.Identity.GetUserId();
+            }
 
 
 
@@ -81,7 +88,45 @@ namespace Recipe.Controllers.RecipeController
             return View(recipes);
         }
 
-
+        [HttpPost]
+        public void RateRecipe(long RecipeId, double value)
+        {
+            RecipeContext db = new RecipeContext();
+            var recipe = db.Recipes.Where(r => r.RecipeId == RecipeId).Single();
+            ShortUserInfo user = null;
+            for(int i = 0; i < recipe.RatedUsers.Count; i++)
+            {
+                if(recipe.RatedUsers[i].UserId.Equals(User.Identity.GetUserId()))
+                {
+                    user = recipe.RatedUsers[i];
+                    break;
+                }
+            }
+            var difference = value;
+            if (User.Identity.GetUserId() != null)
+            {
+                if (user == null && User.Identity.GetUserId() != null)
+                {
+                    user = new ShortUserInfo();
+                    user.UserId = User.Identity.GetUserId();
+                    user.Mark = value;
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    recipe.RatedUsers.Add(user);
+                }
+                else
+                {
+                    difference = value - user.Mark;
+                    user.Mark = value;
+                }
+                double s = 0;
+                for (int i = 0; i < recipe.RatedUsers.Count; i++)
+                    s += recipe.RatedUsers[i].Mark;
+                recipe.Rating = s / recipe.RatedUsers.Count;
+                db.SaveChanges();
+            }
+            AllRecipe("", "");
+        }
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult AddRecipe()
