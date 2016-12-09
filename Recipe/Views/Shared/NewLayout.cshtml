@@ -36,6 +36,12 @@
                 <nav id="nav">
                     <ul class="nav navbar-nav">
                         <li class="current">@Html.ActionLink("Home", "Index", "Home")</li>
+                        @{
+                            if (ViewBag.currentUserId != null)
+                            {
+                                <li class="current">@Html.ActionLink("Recipes rated by me", "MyRatedRecipes", "Home")</li>
+                            }
+                        }
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     </ul>

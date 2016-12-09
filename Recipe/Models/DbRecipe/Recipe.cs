@@ -10,7 +10,7 @@ namespace Recipe.Models.DbRecipe
         public string Description { get; set; }
         public string ImageUrl { get; set; }
 
-        
+        public TimeSpan Time { get; set; }
 
         public double Rating { get; set; }
         public virtual List<IngredientAmount> Ingredients { get; set; }

@@ -26,12 +26,16 @@ namespace Recipe.Controllers.RecipeController
         //}
 
         // GET: AllRecipe
+
+        static double? from;
+        static double? to;
+
         [HttpGet]
-        public ActionResult AllRecipe(IEnumerable<string> ingredients, string searchString)
+        public ActionResult AllRecipe(IEnumerable<string> ingredients, string searchString, string TimeFrom, string TimeTo)
         {
             RecipeContext db = new RecipeContext();
 
-            var ingredientsBox = new List<string>();
+           
 
             var Ingredient = from d in db.Ingredients
                              orderby d.Name
@@ -40,7 +44,7 @@ namespace Recipe.Controllers.RecipeController
             List<Models.DbRecipe.Recipe> recipes = db.Recipes.ToList();
             List<Models.DbRecipe.Recipe> recipesIngredients = new List<Models.DbRecipe.Recipe>();
 
-
+            var ingredientsBox = new List<string>();
             ingredientsBox.AddRange(Ingredient.Distinct());
             ViewBag.Ingredients = new SelectList(ingredientsBox);
 
@@ -56,7 +60,8 @@ namespace Recipe.Controllers.RecipeController
             }
 
 
-
+            TimeSpan from = TimeSpan.MinValue;
+            TimeSpan to = TimeSpan.MaxValue;
             if (ingredients != null&& (ingredients.Count() > 0 && !ingredients.First().Equals("")) && ingredients.Count() != 0)
             {
                 //recipes = (List<Models.DbRecipe.Recipe>)(from r in recipes
@@ -81,13 +86,41 @@ namespace Recipe.Controllers.RecipeController
                     }
                 }
 
+                from = TimeSpan.MinValue;
+                to = TimeSpan.MaxValue;
+                if (TimeFrom != null) from = TimeSpan.Parse(TimeFrom);
+                if (TimeTo != null) to = TimeSpan.Parse(TimeTo);
+
+                recipesIngredients = recipesIngredients.Where(r => r.Time >= from && r.Time <= to).ToList();
                 return View(recipesIngredients);
 
             }
 
+            if (RecipeController.from == null) RecipeController.from = 0;
+            if (RecipeController.to == null) RecipeController.to = 5;
+            ViewBag.lower = RecipeController.from;
+            ViewBag.upper = RecipeController.to;
+            from = TimeSpan.MinValue;
+            to = TimeSpan.MaxValue;
+            if (TimeFrom != null) from = TimeSpan.Parse(TimeFrom);
+            if (TimeTo != null) to = TimeSpan.Parse(TimeTo);
+
+            recipes = recipes.Where(r => r.Time >= from && r.Time <= to).ToList();
             return View(recipes);
         }
 
+        private void initRatingRange()
+        {
+            
+        }
+        [HttpPost]
+        public void SetRating(double? from, double? to)
+        {
+            RecipeController.from = from;
+            RecipeController.to = to;
+            if (RecipeController.from == null) RecipeController.from = 0;
+            if (RecipeController.to == null) RecipeController.to = 5;
+        }
         [HttpPost]
         public void RateRecipe(long RecipeId, double value)
         {
@@ -125,7 +158,7 @@ namespace Recipe.Controllers.RecipeController
                 recipe.Rating = s / recipe.RatedUsers.Count;
                 db.SaveChanges();
             }
-            AllRecipe("", "");
+            AllRecipe(null, null, null, null);
         }
         // GET: /Account/Register
         [AllowAnonymous]
@@ -136,7 +169,7 @@ namespace Recipe.Controllers.RecipeController
 
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult> AddRecipe(Models.DbRecipe.Recipe model, HttpPostedFileBase file)
         {
             RecipeContext db = new RecipeContext();
@@ -169,6 +202,7 @@ namespace Recipe.Controllers.RecipeController
         }
 
         // GET: /Recipe/Edit
+        [Authorize]
         public ActionResult Edit(int id)
         {
 

@@ -16,7 +16,6 @@
         overflow-x: hidden;
         transition: 0.5s;
         padding-top: 60px;
-        opacity: 0.9;
     }
 
         .sidenav a {
@@ -65,8 +64,11 @@
             Ingredient: @Html.DropDownList("Ingredients", (MultiSelectList)ViewBag.Ingredients,"All", new { @class = "dropdown", multiple = "multiple",  @style = "height: 400px;" })
 
             Title: @Html.TextBox("SearchString")
+            Time from: @Html.TextBox("TimeFrom")
+            Time to: @Html.TextBox("TimeTo")
         </p>
-
+        <p style="margin:10px;">from: <input id="from" class="rating rating-loading" data-show-caption="false" data-show-clear="true" data-min="0" data-max="5" data-step="0.1" data-size="xs" value="@ViewBag.lower"></p>
+        <p style="margin:10px;">to:<input id="to" class="rating rating-loading" data-show-caption="false" data-show-clear="true" data-min="0" data-max="5" data-step="0.1" data-size="xs"value="@ViewBag.upper"></p>
         <input type="submit" style="margin:10px;" value="Ok" />
         }
     </div>
@@ -85,49 +87,64 @@
 
 
 }
-    
+
 window.onload = function () {
-    
     var Blocks = document.getElementsByClassName("box feature");
     var maxBlock;
-    for(var item in  Blocks) {
+    for (var item in Blocks) {
         if (Blocks[item].clientHeight > maxBlock) {
             maxBlock = Blocks[item].clientHeight;
         }
-
-        window.onload = function () {
-            var Blocks = document.getElementsByClassName("box feature");
-            var maxBlock;
-            for (var item in Blocks) {
-                if (Blocks[item].clientHeight > maxBlock) {
-                    maxBlock = Blocks[item].clientHeight;
-                }
-            };
+    };
 
     document.getElementById("main").style.transition = "0.5s";
     
     $(".rating").rating();
     $(".rating-locked").rating({ displayOnly: true });
+    $('.rating').on('rating.clear', function (event) {
+        if (event.currentTarget.id) {
+            var to = $("#from")[0]["value"];
+            var from = $("#to")[0]["value"];
+            if (event.currentTarget.id == "to") to = null; else from = null;
+            $.ajax({
+                type: "POST",
+                url: "/Recipe/SetRating",
+                data: JSON.stringify({ from: from, to: to }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        }
+    });
     $('.rating').on('rating.change', function (event, value, caption) {
-        $.ajax({
-            type: "POST",
-            url: "/Recipe/RateRecipe",
-            data: JSON.stringify({RecipeId: event.currentTarget.attributes["data-recipeId"].value, value: value}),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: OnSuccess
-        });
-        //location.reload();
-        function OnSuccess(response) {
-            window.reload();
+        if (event.currentTarget.id) {
+            $.ajax({
+                type: "POST",
+                url: "/Recipe/SetRating",
+                data: JSON.stringify({ from: $("#from")[0]["value"], to: $("#to")[0]["value"] }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        } else {
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Recipe/RateRecipe",
+                data: JSON.stringify({ RecipeId: event.currentTarget.attributes["data-recipeId"].value, value: value }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnSuccess
+            });
+            //location.reload();
+            function OnSuccess(response) {
+                window.reload();
+            }
         }
     });
 };
 
 
 </script>
-
-    </script>
 
     <div id="main">
         <p>
@@ -144,7 +161,12 @@ window.onload = function () {
                 <div class="row">
 
                     @foreach (var item in Model)
-                {
+
+                    {
+                        if (item.Rating < ViewBag.lower || item.Rating > ViewBag.upper)
+                        {
+                            continue;
+                        }
                         <!-- Box -->
                         <div class="box feature" style="height: 20%; width: 23%; margin:1%;">
                             <section style="margin:0px; padding:0;">
@@ -172,11 +194,6 @@ window.onload = function () {
                                             <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString()</p>
                                         }
                                     }
-                                    else
-                                    {
-                                        <p>@Html.DisplayFor(modelItem => item.Description).ToHtmlString()</p>
-                                    }
-                                }
                             </div>
                         </section>
                         <div class="row">
