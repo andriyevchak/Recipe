@@ -62,6 +62,12 @@ namespace Recipe.Controllers.RecipeController
 
             TimeSpan from = TimeSpan.MinValue;
             TimeSpan to = TimeSpan.MaxValue;
+            from = TimeSpan.MinValue;
+            to = TimeSpan.MaxValue;
+            if (TimeFrom != null && TimeFrom != "") from = TimeSpan.Parse(TimeFrom);
+            if (TimeTo != null && TimeTo != "") to = TimeSpan.Parse(TimeTo);
+            initRatingRange();
+
             if (ingredients != null&& (ingredients.Count() > 0 && !ingredients.First().Equals("")) && ingredients.Count() != 0)
             {
                 //recipes = (List<Models.DbRecipe.Recipe>)(from r in recipes
@@ -85,41 +91,31 @@ namespace Recipe.Controllers.RecipeController
                         recipesIngredients.Add(r);
                     }
                 }
-
-                from = TimeSpan.MinValue;
-                to = TimeSpan.MaxValue;
-                if (TimeFrom != null) from = TimeSpan.Parse(TimeFrom);
-                if (TimeTo != null) to = TimeSpan.Parse(TimeTo);
-
-                recipesIngredients = recipesIngredients.Where(r => r.Time >= from && r.Time <= to).ToList();
+                recipesIngredients = recipesIngredients
+                    .Where(r => r.Time >= from && r.Time <= to && r.Rating >= double.Parse(Session["ratingFrom"].ToString()) 
+                        && r.Rating <= double.Parse(Session["ratingTo"].ToString()))
+                    .ToList();
                 return View(recipesIngredients);
 
             }
 
-            if (RecipeController.from == null) RecipeController.from = 0;
-            if (RecipeController.to == null) RecipeController.to = 5;
-            ViewBag.lower = RecipeController.from;
-            ViewBag.upper = RecipeController.to;
-            from = TimeSpan.MinValue;
-            to = TimeSpan.MaxValue;
-            if (TimeFrom != null) from = TimeSpan.Parse(TimeFrom);
-            if (TimeTo != null) to = TimeSpan.Parse(TimeTo);
-
-            recipes = recipes.Where(r => r.Time >= from && r.Time <= to).ToList();
+            recipes = recipes.Where(r => r.Time >= from && r.Time <= to && 
+                 r.Rating >= double.Parse(Session["ratingFrom"].ToString()) && r.Rating <= double.Parse(Session["ratingTo"].ToString()))
+                .ToList();
             return View(recipes);
         }
 
         private void initRatingRange()
         {
-            
+            if (Session["ratingFrom"] == null) Session["ratingFrom"] = 0;
+            if (Session["ratingTo"] == null) Session["ratingTo"] = 5;
         }
         [HttpPost]
         public void SetRating(double? from, double? to)
         {
-            RecipeController.from = from;
-            RecipeController.to = to;
-            if (RecipeController.from == null) RecipeController.from = 0;
-            if (RecipeController.to == null) RecipeController.to = 5;
+            Session["ratingFrom"] = from;
+            Session["ratingTo"] = to;
+            initRatingRange();
         }
         [HttpPost]
         public void RateRecipe(long RecipeId, double value)

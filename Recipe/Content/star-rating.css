@@ -17,6 +17,10 @@
     border: none;
 }
 
+.rating-container {
+    display: inline-block;
+    margin-left: 20px;
+}
 /*
  * Stars
  */
@@ -103,7 +107,7 @@
 }
 
 .rating-xs {
-    font-size: 2em;
+    font-size: 0.9em;
 }
 
 .rating-xl {
@@ -135,18 +139,18 @@
 
 /**
  * Caption
- */
+ */%
 .rating-container .caption {
     color: #999;
     display: inline-block;
     vertical-align: middle;
-    font-size: 60%;
+    font-size: 90%;
     margin-top: -0.6em;
 }
 
 .rating-container .caption {
     margin-left: 5px;
-    margin-right: 0;
+    margin-right: 7px;
 }
 
 .rating-rtl .caption {
@@ -161,4 +165,8 @@
     .rating-container .clear-rating {
         display: none;
     }
+}
+
+.caption, .rating {
+    display: inline-block;
 }

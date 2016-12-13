@@ -8,6 +8,29 @@
 */
 
 /* Reset */
+.box.feature {
+    height: 20%;
+    width: 23.7%;
+    margin: 0.6%;
+    padding: 6px;
+}
+
+.badge {
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #3c8dbc;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: transparent;
+    border-radius: 100px;
+    border-style: solid;
+    border-color: #3c8dbc;
+    border-width: 1px;
+}
 
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
 		margin: 0;
@@ -1733,10 +1756,6 @@
 		box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.05);
 		padding: 2em;
 	}
-
-		.box.feature {
-			padding: 0;
-		}
 
 			.box.feature .inner {
 				padding: 4em 2em 3em 2em;

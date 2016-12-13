@@ -530,7 +530,7 @@
         clearButton: '<i class="glyphicon glyphicon-minus-sign"></i>',
         clearButtonBaseClass: 'clear-rating',
         clearButtonActiveClass: 'clear-rating-active',
-        clearCaptionClass: 'label label-default',
+        clearCaptionClass: 'badge',
         clearValue: null,
         captionElement: null,
         clearElement: null,
@@ -541,12 +541,12 @@
     };
 
     $.fn.ratingLocales.en = {
-        defaultCaption: '{rating} Stars',
+        defaultCaption: '{rating}',
         starCaptions: {
 
         },
         clearButtonTitle: 'Clear',
-        clearCaption: 'Not Rated'
+        clearCaption: 'NR'
     };
 
     $.fn.rating.Constructor = Rating;

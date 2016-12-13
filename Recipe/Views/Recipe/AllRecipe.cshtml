@@ -163,13 +163,13 @@ window.onload = function () {
                     @foreach (var item in Model)
 
                     {
-                        if (item.Rating < ViewBag.lower || item.Rating > ViewBag.upper)
-                        {
-                            continue;
-                        }
+                        //if (item.Rating < ViewBag.lower || item.Rating > ViewBag.upper)
+                        //{
+                        //    continue;
+                        //}
                         <!-- Box -->
-                        <div class="box feature" style="height: 20%; width: 23%; margin:1%;">
-                            <section style="margin:0px; padding:0;">
+                        <div class="box feature">
+                            <section style="margin:0px;">
                                 <a href="#" class="image featured"><img src="@Html.DisplayFor(modelItem => item.ImageUrl)" alt="" /></a>
                                 <div style="padding-top:5px; height: 20%; width: 100%;">
                                     <header style="margin:0,0,1em,0;">
@@ -196,58 +196,72 @@ window.onload = function () {
                                     }
                             </div>
                         </section>
-                        <div class="row">
+                        
                             
-                            <div class="pull-left" style="padding-bottom:0; margin-left: 9px">
-                                @Html.ActionLink("Edit", "Edit", new { id = item.RecipeId })
-                            </div>
-                            <div class="pull-right">
-                                @{
-                                    if (item.Rating == 0)
-                                    {
-                                            <span class="badge" style="margin-right: 15px">Recipe is not rated</span>
-                                        
-                                    }
-                                    else
-                                    {
-                                        <span class="badge">@Html.DisplayFor(modelItem => item.Rating)</span>
-                                    }
-                                }
-                                @if (ViewBag.currentUserId != null)
-                                {
+                            <div class="pull-left" style="padding-bottom:0; margin-left: 5px; display:inline-block">
 
-                                    Boolean wasRated = false;
-                                    double mark = 0;
-                                    if (item.RatedUsers != null)
-                                    {
-                                        for (int i = 0; i < item.RatedUsers.Count; i++)
-                                        {
-                                            if (item.RatedUsers[i].UserId.Equals(ViewBag.currentUserId))
+                                @Html.ActionLink("Edit", "Edit", new { id = item.RecipeId })
+                                <p style="display:inline-block">|</p>
+                                @Html.ActionLink("Preview", "Preview", new { id = item.RecipeId })
+                            
+
+                                <div class="pull-left">
+                                    <div class="pull-left" style="display:inline-block">
+                                        <span style="display:inline-block; font-size:medium">
+                                            Rating:
+                                        </span>
+                                        @{
+                                            if (item.Rating == 0)
                                             {
-                                                mark = item.RatedUsers[i].Mark;
-                                                wasRated = true;
+                                                <span class="badge" style="margin-right: 15px; display:inline-block">NR</span>
+
+                                            }
+                                            else
+                                            {
+                                                <span class="badge" style="display:inline-block">@Html.DisplayFor(modelItem => item.Rating)</span>
                                             }
                                         }
-                                    }
-                                    if (!wasRated)
+                                    </div>
+                                    @if (ViewBag.currentUserId != null)
                                     {
-                                        <input class="rating rating-loading" data-recipeId="@item.RecipeId" data-show-caption="true" data-show-clear="false" value=@Html.DisplayFor(modelItem => item.Rating) data-min="0" data-max="5" data-step="0.1" data-size="xs">
+
+                                        Boolean wasRated = false;
+                                        double mark = 0;
+                                        if (item.RatedUsers != null)
+                                        {
+                                            for (int i = 0; i < item.RatedUsers.Count; i++)
+                                            {
+                                                if (item.RatedUsers[i].UserId.Equals(ViewBag.currentUserId))
+                                                {
+                                                    mark = item.RatedUsers[i].Mark;
+                                                    wasRated = true;
+                                                }
+                                            }
+                                        }
+                                        if (!wasRated)
+                                        {
+                                            <input class="rating rating-loading" data-recipeId="@item.RecipeId" data-show-caption="true" data-show-clear="false" value=@Html.DisplayFor(modelItem => item.Rating) data-min="0" data-max="5" data-step="0.1" data-size="xs">
+                                        }
+                                        else
+                                        {
+
+                                            <input class="rating rating-loading" data-recipeId="@item.RecipeId" value=@mark data-show-clear="false" data-size="xs">
+                                        }
                                     }
                                     else
                                     {
-                                        
-                                        <input class="rating rating-loading" data-recipeId="@item.RecipeId" value=@mark data-show-clear="false" data-size="xs">
+                                        <input class="rating-loading rating-locked" value=@Html.DisplayFor(modelItem => item.Rating) data-size="xs">
                                     }
-                                }
-                                else
-                                {
-                                    <input class="rating-loading rating-locked" value=@Html.DisplayFor(modelItem => item.Rating) data-size="xs">
-                                }
-
+                                </div>
+                                <div class="pull-left" style="display:inline-block">
+                                    <p style="display:inline-block">Author:</p>
+                                    <p style="display:inline-block">add here name</p>
+                                </div>
                             </div>
+                            
                         </div>
                         
-                    </div>
+                    
                  }
 
                 </div>
