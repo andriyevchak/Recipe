@@ -160,40 +160,67 @@ namespace Recipe.Controllers.RecipeController
         [AllowAnonymous]
         public ActionResult AddRecipe()
         {
-            return View();
+            RecipeContext db = new RecipeContext();
+
+            List<SelectListItem> ingNames = db.Ingredients.Select(n => new SelectListItem { Value = n.Name, Text = n.Name }).Distinct().ToList();
+            ViewBag.IngNames = ingNames;
+
+            RecipeAddEditViewModel model = new RecipeAddEditViewModel();
+
+            return View(model);
         }
 
         // POST: /Account/Register
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> AddRecipe(Models.DbRecipe.Recipe model, HttpPostedFileBase file)
+        public async Task<ActionResult> AddRecipe(RecipeAddEditViewModel model, HttpPostedFileBase file, string submit)
         {
             RecipeContext db = new RecipeContext();
 
-            if (file != null)
+            switch (submit)
             {
-                string pic = System.IO.Path.GetFileName(file.FileName);
-                string path = System.IO.Path.Combine(
-                                       Server.MapPath("~/Images/Recipes"), pic);
-                model.ImageUrl = "/Images/Recipes/" + pic;
+                case "Add":
+                    Ingredient ing = db.Ingredients.Where(n => n.Name == model.NewIngredientName).First();
+                    model.Recipe.Ingredients.Add(new IngredientAmount
+                    {
+                        Ingredient = ing,
+                        Amount =  model.NewIngredientAmount,
+                        UnitOfMeasurement = model.NewIngredientUnits
+                    });
 
-                // file is uploaded
-                file.SaveAs(path);
+                    model.NewIngredientName = default(string);
+                    break;
 
-                // save the image path path to the database or you can send image
-                // directly to database
-                // in-case if you want to store byte[] ie. for DB
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    file.InputStream.CopyTo(ms);
-                    byte[] array = ms.GetBuffer();
-                }
+                default:
+                    if (file != null)
+                    {
+                        string pic = System.IO.Path.GetFileName(file.FileName);
+                        string path = System.IO.Path.Combine(
+                                               Server.MapPath("~/Images/Recipes"), pic);
+                        model.Recipe.ImageUrl = "/Images/Recipes/" + pic;
 
+                        // file is uploaded
+                        file.SaveAs(path);
+
+                        // save the image path path to the database or you can send image
+                        // directly to database
+                        // in-case if you want to store byte[] ie. for DB
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            file.InputStream.CopyTo(ms);
+                            byte[] array = ms.GetBuffer();
+                        }
+
+                    }
+
+                    //db.Recipes.Add(model.Recipe);
+                    db.Entry<Models.DbRecipe.Recipe>(model.Recipe).State = EntityState.Added;
+                    db.SaveChanges();
+                    break;
             }
 
-            db.Recipes.Add(model);
-            db.SaveChanges();
-
+            List<SelectListItem> ingNames = db.Ingredients.Select(n => new SelectListItem { Value = n.Name, Text = n.Name }).Distinct().ToList();
+            ViewBag.IngNames = ingNames;
             return View(model);
         }
 
@@ -204,24 +231,73 @@ namespace Recipe.Controllers.RecipeController
 
             RecipeContext db = new RecipeContext();
             //int IntId = Convert.ToInt32(id);
-            Models.DbRecipe.Recipe recipe = db.Recipes.Where(x => x.RecipeId == id).FirstOrDefault();
 
-            return View(recipe);
+            RecipeAddEditViewModel model = new RecipeAddEditViewModel
+            {
+                Recipe = db.Recipes.Where(x => x.RecipeId == id).FirstOrDefault()
+            };
+
+            List<SelectListItem> ingNames = db.Ingredients.Select(n => new SelectListItem { Value = n.Name, Text = n.Name }).Distinct().ToList();
+            ViewBag.IngNames = ingNames;
+
+            return View(model);
         }
 
         // POST: /Account/Register
         [HttpPost]
-        public async Task<ActionResult> Edit(Models.DbRecipe.Recipe model)
+        public async Task<ActionResult> Edit(Models.RecipeAddEditViewModel model, string submit)
         {
             RecipeContext db = new RecipeContext();
 
-            Models.DbRecipe.Recipe current = db.Recipes.Where(x => x.RecipeId == model.RecipeId).Single();
+            switch (submit)
+            {
+                case "Add":
+                    Ingredient ing = db.Ingredients.Where(n => n.Name == model.NewIngredientName).First();
+                    model.Recipe.Ingredients.Add(new IngredientAmount
+                    {
+                        Ingredient = ing,
+                        Amount = model.NewIngredientAmount,
+                        UnitOfMeasurement = model.NewIngredientUnits
+                    });
 
-            current = model;
+                    model.NewIngredientName = default(string);
+                    break;
 
-            db.SaveChanges();
+                default:
+                    Models.DbRecipe.Recipe current = db.Recipes.Where(x => x.RecipeId == model.Recipe.RecipeId).Single();
+
+                    current.Name = model.Recipe.Name;
+                    current.Description = model.Recipe.Description;
+                    current.Time = model.Recipe.Time;
+                    current.ImageUrl = model.Recipe.ImageUrl;
+
+                    current.Ingredients.Clear();
+                    
+                    foreach(var item in model.Recipe.Ingredients)
+                    {
+                        current.Ingredients.Add(item);
+                    }
+
+                    db.Entry<Models.DbRecipe.Recipe>(current).State = EntityState.Modified;
+
+                    db.SaveChanges();
+                    break;
+            }
+
+
+            List<SelectListItem> ingNames = db.Ingredients.Select(n => new SelectListItem { Value = n.Name, Text = n.Name }).Distinct().ToList();
+            ViewBag.IngNames = ingNames;
 
             return View(model);
+        }
+
+        [HttpGet]
+        public ViewResult Preview(int id)
+        {
+            RecipeContext db = new RecipeContext();
+            Models.DbRecipe.Recipe current = db.Recipes.Where(x => x.RecipeId == id).Single();
+
+            return View(current);
         }
 
         [HttpPost]
@@ -247,6 +323,32 @@ namespace Recipe.Controllers.RecipeController
             }
             // after successfully uploading redirect the user
             return RedirectToAction("actionname", "controller name");
+        }
+
+        [HttpPost]
+        public ViewResult DeleteIngredient(RecipeAddEditViewModel model, string name, int amount)
+        {
+            RecipeContext db = new RecipeContext();
+
+            for(int i = model.Recipe.Ingredients.Count - 1; i >= 0 ; i--)
+            {
+                if (model.Recipe.Ingredients[i].Ingredient.Name == name && model.Recipe.Ingredients[i].Amount == amount)
+                {
+                    model.Recipe.Ingredients.RemoveAt(i);
+                    break;
+                }
+            }
+            List<SelectListItem> ingNames = db.Ingredients.Select(n => new SelectListItem { Value = n.Name, Text = n.Name }).Distinct().ToList();
+            ViewBag.IngNames = ingNames;
+
+            if (model.Recipe.RecipeId == 0)
+            {
+                return View("AddRecipe", model);
+            }
+            else
+            {
+                return View("Edit", model);
+            }
         }
     }
 }

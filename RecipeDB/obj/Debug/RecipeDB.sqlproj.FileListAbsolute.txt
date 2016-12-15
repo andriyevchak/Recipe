@@ -3,3 +3,8 @@ C:\Users\AndriyEvchak\Desktop\Repository\Recipe\RecipeDB\bin\Debug\RecipeDB.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\RecipeDB\bin\Debug\RecipeDB.pdb
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\RecipeDB\obj\Debug\RecipeDB.dll
 C:\Users\AndriyEvchak\Desktop\Repository\Recipe\RecipeDB\obj\Debug\RecipeDB.pdb
+C:\Users\Маркіян\Source\Repos\Recipe\RecipeDB\bin\Debug\RecipeDB.dacpac
+C:\Users\Маркіян\Source\Repos\Recipe\RecipeDB\bin\Debug\RecipeDB.dll
+C:\Users\Маркіян\Source\Repos\Recipe\RecipeDB\bin\Debug\RecipeDB.pdb
+C:\Users\Маркіян\Source\Repos\Recipe\RecipeDB\obj\Debug\RecipeDB.dll
+C:\Users\Маркіян\Source\Repos\Recipe\RecipeDB\obj\Debug\RecipeDB.pdb
