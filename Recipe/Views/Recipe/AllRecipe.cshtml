@@ -61,7 +61,11 @@
             @*@Html.ListBox("Ingredients", ViewBag.Ingredients as MultiSelectList)*@
             @*<p style="margin:10px;">Ingredient: @Html.ListBox("Ingredients", (MultiSelectList)ViewBag.Ingredients, new { multiple = "multiple" })*@
         <p style="margin:10px;">
+
             Ingredient: @Html.DropDownList("Ingredients", (MultiSelectList)ViewBag.Ingredients,"All", new { @class = "dropdown", multiple = "multiple",  @style = "height: 400px;" })
+            
+
+            Users: @Html.DropDownList("Users", (MultiSelectList)ViewBag.SelectedUsers, "All", new { @class = "dropdown", multiple = "multiple", @style = "height: 200px;" })
 
             Title: @Html.TextBox("SearchString")
             Time from: @Html.TextBox("TimeFrom")
@@ -255,7 +259,7 @@ window.onload = function () {
                                 </div>
                                 <div class="pull-left" style="display:inline-block">
                                     <p style="display:inline-block">Author:</p>
-                                    <p style="display:inline-block">add here name</p>
+                                    <p style="display:inline-block">@Html.DisplayFor(modelItem => item.UserName)</p>
                                 </div>
                             </div>
                             

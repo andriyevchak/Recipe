@@ -31,12 +31,11 @@ namespace Recipe.Controllers.RecipeController
         static double? to;
 
         [HttpGet]
-        public ActionResult AllRecipe(IEnumerable<string> ingredients, string searchString, string TimeFrom, string TimeTo)
+        public ActionResult AllRecipe(IEnumerable<string> ingredients, string nickName, string searchString, string TimeFrom, string TimeTo, IEnumerable<string> users)
         {
             RecipeContext db = new RecipeContext();
-
-           
-
+            var UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+          
             var Ingredient = from d in db.Ingredients
                              orderby d.Name
                              select d.Name;
@@ -46,7 +45,10 @@ namespace Recipe.Controllers.RecipeController
 
             var ingredientsBox = new List<string>();
             ingredientsBox.AddRange(Ingredient.Distinct());
+
             ViewBag.Ingredients = new SelectList(ingredientsBox);
+
+            ViewBag.SelectedUsers = new SelectList(UserStore.Users.Select(x=>x.UserName));
 
 
             if (!String.IsNullOrEmpty(searchString))
@@ -58,6 +60,7 @@ namespace Recipe.Controllers.RecipeController
             {
                 ViewBag.currentUserId = User.Identity.GetUserId();
             }
+            var context = new ApplicationDbContext();
 
 
             TimeSpan from = TimeSpan.MinValue;
@@ -67,6 +70,14 @@ namespace Recipe.Controllers.RecipeController
             if (TimeFrom != null && TimeFrom != "") from = TimeSpan.Parse(TimeFrom);
             if (TimeTo != null && TimeTo != "") to = TimeSpan.Parse(TimeTo);
             initRatingRange();
+
+            if (users != null && (users.Count() > 0 && !users.First().Equals("")) && users.Count() != 0)
+            {
+                recipes = (List<Models.DbRecipe.Recipe>)(from r in recipes
+                                                         from us in users
+                                                         where r.UserName == us
+                                                         select r).ToList();
+            }
 
             if (ingredients != null&& (ingredients.Count() > 0 && !ingredients.First().Equals("")) && ingredients.Count() != 0)
             {
@@ -154,7 +165,7 @@ namespace Recipe.Controllers.RecipeController
                 recipe.Rating = s / recipe.RatedUsers.Count;
                 db.SaveChanges();
             }
-            AllRecipe(null, null, null, null);
+            AllRecipe(null, null, null, null, null, null);
         }
         // GET: /Account/Register
         [AllowAnonymous]
@@ -182,13 +193,12 @@ namespace Recipe.Controllers.RecipeController
                 case "Add":
                     Ingredient ing = db.Ingredients.Where(n => n.Name == model.NewIngredientName).First();
                     model.Recipe.Ingredients.Add(new IngredientAmount
-                    {
+                    {                        
                         Ingredient = ing,
                         Amount =  model.NewIngredientAmount,
                         UnitOfMeasurement = model.NewIngredientUnits
                     });
 
-                    model.NewIngredientName = default(string);
                     break;
 
                 default:
@@ -199,6 +209,7 @@ namespace Recipe.Controllers.RecipeController
                                                Server.MapPath("~/Images/Recipes"), pic);
                         model.Recipe.ImageUrl = "/Images/Recipes/" + pic;
 
+                        
                         // file is uploaded
                         file.SaveAs(path);
 
@@ -213,11 +224,24 @@ namespace Recipe.Controllers.RecipeController
 
                     }
 
+                    var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+                    var userManager = new UserManager<ApplicationUser>(store);
+
+                    ApplicationUser user = userManager.FindByIdAsync(User.Identity.GetUserId()).Result;
+
+                    model.Recipe.UserName = user.UserName;
+
                     //db.Recipes.Add(model.Recipe);
                     db.Entry<Models.DbRecipe.Recipe>(model.Recipe).State = EntityState.Added;
+                 
                     db.SaveChanges();
                     break;
             }
+
+
+
+            model.NewIngredientName = default(string);
+
 
             List<SelectListItem> ingNames = db.Ingredients.Select(n => new SelectListItem { Value = n.Name, Text = n.Name }).Distinct().ToList();
             ViewBag.IngNames = ingNames;

@@ -13,10 +13,9 @@ namespace Recipe.Models.DbRecipe
         public TimeSpan Time { get; set; }
 
         public double Rating { get; set; }
-        public virtual List<IngredientAmount> Ingredients { get; set; }
+        public string UserName { get; set; }
 
-        //public virtual List<ApplicationUser> RatedUsers { get; set; }
-        //public string RatedUsers { get; set; }
+        public virtual List<IngredientAmount> Ingredients { get; set; }
 
         public virtual List<ShortUserInfo> RatedUsers { get; set; }
     }
