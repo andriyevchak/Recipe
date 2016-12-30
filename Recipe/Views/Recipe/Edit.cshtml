@@ -59,7 +59,7 @@
                                 <td>@Html.EditorFor(m => m.NewIngredientAmount, new { htmlAttributes = new { @class = "form-control" } })</td>
                                 <td>@Html.EnumDropDownListFor(m => m.NewIngredientUnits, new { @class = "form-control" })</td>
                                 <td>
-                                    <input type="submit" name="submit" value="Add" class="btn btn-sm" />
+                                    <input type="submit" name="submit" value="Add" class="btn btn-sm" style="font-size:10px;" />
                                 </td>
                             </tr>
                             @for (int i = 0; i < Model.Recipe.Ingredients.Count(); i++)
@@ -72,7 +72,7 @@
                                     <td>@Html.DisplayFor(m => m.Recipe.Ingredients[i].Ingredient.Name)</td>
                                     <td class="text-center">@Html.DisplayFor(m => m.Recipe.Ingredients[i].Amount)</td>
                                     <td class="text-center">@Html.DisplayFor(m => m.Recipe.Ingredients[i].UnitOfMeasurement)</td>
-                                    <td><input type="submit" name="submit" value="Delete" class="btn btn-sm" formmethod="post" formaction="/Recipe/DeleteIngredient?name=@(Model.Recipe.Ingredients[i].Ingredient.Name)&amount=@(Model.Recipe.Ingredients[i].Amount)" /></td>
+                                    <td><input type="submit" name="submit" value="Delete" class="btn btn-sm" style="font-size:10px;" formmethod="post" formaction="/Recipe/DeleteIngredient?name=@(Model.Recipe.Ingredients[i].Ingredient.Name)&amount=@(Model.Recipe.Ingredients[i].Amount)" /></td>
                                 </tr>
                             }
                         </tbody>
