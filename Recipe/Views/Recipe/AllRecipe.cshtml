@@ -57,10 +57,7 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     @using (Html.BeginForm("AllRecipe", "Recipe", FormMethod.Get))
     {
-        @*<p style="margin:10px;">*@
-            @*@Html.ListBox("Ingredients", ViewBag.Ingredients as MultiSelectList)*@
-            @*<p style="margin:10px;">Ingredient: @Html.ListBox("Ingredients", (MultiSelectList)ViewBag.Ingredients, new { multiple = "multiple" })*@
-        <p style="margin:10px;">
+            <p style="margin:10px;">
 
             Ingredient: @Html.DropDownList("Ingredients", (MultiSelectList)ViewBag.Ingredients,"All", new { @class = "dropdown", multiple = "multiple",  @style = "height: 400px;" })
             
@@ -151,13 +148,11 @@ window.onload = function () {
 </script>
 
     <div id="main">
-        <p>
-            @Html.ActionLink("Create New", "AddRecipe")
-        </p>
-
 
         <button style="font-size:15px;cursor:pointer" onclick="openNav()"> Filter </button>
 
+        <button style="font-size:15px;cursor:pointer; opacity:1; background:white;">@Html.ActionLink("Create New", "AddRecipe")</button>
+        
         <!-- Features -->
         <div id="features-wrapper">
             <div>
